@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style>
+        body {
+            font-family: "Arial";
+        }
+    </style>
+    <script type="text/javascript">
+    window.awsWafCookieDomainList = ['booking.com'];
+    </script>
+    <script type="text/javascript" src="https://d8c14d4960ca.edge.sdk.awswaf.com/d8c14d4960ca/a18a4859af9c/challenge.js"></script>
+    <script type="text/javascript">
+        function searchStringWithNewParam(search, key, value) {
+            value = encodeURIComponent(value);
+            if (!search.startsWith('?')) {
+                return search + `?${key}=${value}`;
+            } else if (search.endsWith('&')) {
+                return search + `${key}=${value}`;
+            } else {
+                return search + `&${key}=${value}`;
+            }
+        }
+
+
+        function getNewUrlWithAddedParameter(location, parameters) {
+            let newSearch = location.search;
+            for (let parameterName of Object.keys(parameters)) {
+                newSearch = searchStringWithNewParam(newSearch, parameterName, parameters[parameterName]);
+            }
+            return `${location.protocol}//${location.hostname}${location.pathname}${newSearch}${location.hash}`;
+        }
+
+    </script>
+</head>
+<body>
+    <div id="challenge-container"></div>
+    <script type="text/javascript">
+        let parameters = {
+            chal_t: 1754572081712,
+            force_referer:  document.referrer,
+        };
+        let newHref = getNewUrlWithAddedParameter(document.location, parameters);
+        AwsWafIntegration.saveReferrer();
+        AwsWafIntegration.checkForceRefresh().then((forceRefresh) => {
+            if (forceRefresh) {
+                AwsWafIntegration.forceRefreshToken().then(() => {
+                    window.location.href = newHref;
+                });
+            } else {
+                AwsWafIntegration.getToken().then(() => {
+                    window.location.href = newHref;
+                });
+            }
+        });
+    </script>
+    <noscript>
+        <h1>JavaScript is disabled</h1>
+        In order to continue, we need to verify that you're not a robot.
+        This requires JavaScript. Enable JavaScript and then reload the page.
+    </noscript>
+</body>
+</html>
