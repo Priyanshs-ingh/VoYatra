@@ -1,21 +1,19 @@
+# -*- coding: utf-8 -*-
 import scrapy
 
 class FlightItem(scrapy.Item):
-    """Flight data item"""
-    origin = scrapy.Field()
-    destination = scrapy.Field()
-    departure_date = scrapy.Field()
-    return_date = scrapy.Field()
+    """Define the fields for flight data"""
+    flight_number = scrapy.Field()
     airline = scrapy.Field()
-    price = scrapy.Field()
-    currency = scrapy.Field()
-    duration = scrapy.Field()
-    stops = scrapy.Field()
+    source = scrapy.Field()
+    destination = scrapy.Field()
     departure_time = scrapy.Field()
     arrival_time = scrapy.Field()
-    source_url = scrapy.Field()
+    price = scrapy.Field()
+    duration = scrapy.Field()
+    stops = scrapy.Field()
     scraped_at = scrapy.Field()
-    data_type = scrapy.Field()
+    url = scrapy.Field()
 
 class NewsItem(scrapy.Item):
     """News data item"""
